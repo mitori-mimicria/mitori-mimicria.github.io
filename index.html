@@ -87,7 +87,7 @@ ul { padding: 0; list-style: none; }
 .lang-pop button[aria-current="true"] { color: var(--gold); }
 
 /* ---------- はじめの一文 ---------- */
-.intro { padding-top: 40px; padding-bottom: 56px; border-bottom: 1px solid var(--line); }
+.intro { padding-top: 80px; padding-bottom: 56px; border-bottom: 1px solid var(--line); }
 .intro p { max-width: 36em; font-size: clamp(18px, 2.2vw, 22px); line-height: 1.8; }
 .intro .ai { margin-top: 12px; font-size: 13px; color: var(--mute); }
 
@@ -172,8 +172,8 @@ html[lang="ja"] .app, html[lang="en"] .app { font-family: 'BIZ UDPGothic', var(-
 <header class="wrap top">
   <a class="mark" href="./">Mimicria</a>
   <nav>
-    <a href="#books" data-t="nav.books">図鑑</a>
     <a href="#milleaf">Milleaf</a>
+    <a href="#books" data-t="nav.books">図鑑</a>
   </nav>
   <div class="lang">
     <button class="lang-btn" type="button" aria-haspopup="true" aria-expanded="false" id="lang-btn">
@@ -185,15 +185,6 @@ html[lang="ja"] .app, html[lang="en"] .app { font-family: 'BIZ UDPGothic', var(-
 </header>
 
 <main>
-  <section class="wrap intro">
-    <p data-t="intro">「人のふりをしているもの」を観察して記録する、デジタルのアート図鑑です。</p>
-    <p class="ai" data-t="ai">生成AIを利用し、選定と加筆・修正を行って制作しています。</p>
-  </section>
-
-  <div id="books">
-    <section class="wrap latest" id="latest"></section>
-    <section class="wrap part" id="part1"></section>
-  </div>
 
   <section class="app" id="milleaf">
     <div class="wrap app-in">
@@ -222,6 +213,16 @@ html[lang="ja"] .app, html[lang="en"] .app { font-family: 'BIZ UDPGothic', var(-
       </figure>
     </div>
   </section>
+
+  <div id="books">
+    <section class="wrap intro">
+      <p data-t="intro">「人のふりをしているもの」を観察して記録する、デジタルのアート図鑑です。</p>
+      <p class="ai" data-t="ai">生成AIを利用し、選定と加筆・修正を行って制作しています。</p>
+    </section>
+    <section class="wrap latest" id="latest"></section>
+    <section class="wrap part" id="part1"></section>
+  </div>
+
 </main>
 
 <footer class="wrap foot">
