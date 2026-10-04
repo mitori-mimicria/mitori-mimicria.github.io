@@ -141,6 +141,7 @@ html[lang="ja"] .app, html[lang="en"] .app { font-family: 'BIZ UDPGothic', var(-
   background: var(--m-accent); color: var(--m-bg) !important; text-decoration: none; font-weight: 700;
 }
 .btn:hover { background: var(--m-accent-dark); }
+.manual { display: inline-block; margin: 28px 0 0 18px; color: var(--m-accent); font-weight: 700; }
 .maker { font-family: var(--sans); margin-top: 16px;  /* BIZ UDPGothic は — が細すぎて消えて見える */
   font-size: 13px; color: var(--m-mute); }
 .shots { display: flex; flex-direction: column; gap: 20px; }
@@ -203,7 +204,7 @@ html[lang="ja"] .app, html[lang="en"] .app { font-family: 'BIZ UDPGothic', var(-
           <div><dt data-t="m.env.k">動作環境</dt><dd>Windows 10 / 11（64bit）</dd></div>
           <div><dt data-t="m.lang.k">表示言語</dt><dd class="langs"><span lang="ja">日本語</span> / <span lang="en">English</span> / <span lang="ko">한국어</span> / <span lang="zh-Hant">繁體中文</span> / <span lang="zh-Hans">简体中文</span></dd></div>
         </dl>
-        <a class="btn" id="m-btn" href="https://mitori-mimicria.booth.pm/" data-t="m.btn">BOOTH で見る</a>
+        <a class="btn" id="m-btn" href="https://mitori-mimicria.booth.pm/" data-t="m.btn">BOOTH で見る</a><a class="manual" id="m-manual" href="https://mitori-mimicria.github.io/milleaf/" data-t="m.manual">使い方</a>
         <p class="maker" data-t="m.maker">作者: Mimicria — Mitori</p>
       </div>
       <figure class="shots" style="margin:0">
@@ -318,6 +319,7 @@ html[lang="ja"] .app, html[lang="en"] .app { font-family: 'BIZ UDPGothic', var(-
     'm.env.k': { ja: '動作環境', en: 'Requirements', ko: '동작 환경', 'zh-Hant': '執行環境', 'zh-Hans': '运行环境' },
     'm.lang.k': { ja: '表示言語', en: 'Languages', ko: '표시 언어', 'zh-Hant': '顯示語言', 'zh-Hans': '显示语言' },
     'm.btn': { ja: 'BOOTH で見る', en: 'View on BOOTH', ko: 'BOOTH에서 보기', 'zh-Hant': '在 BOOTH 查看', 'zh-Hans': '在 BOOTH 查看' },
+    'm.manual': { ja: '使い方', en: 'User guide', ko: '사용 방법', 'zh-Hant': '使用說明', 'zh-Hans': '使用说明' },
     'm.maker': { ja: '作者: Mimicria — Mitori', en: 'Made by Mimicria — Mitori', ko: '만든 사람: Mimicria — Mitori', 'zh-Hant': '作者：Mimicria — Mitori', 'zh-Hans': '作者：Mimicria — Mitori' },
     'm.shot': { ja: '見本の本「STUDIO DAYS」のページ', en: 'Pages from the sample book “STUDIO DAYS”', ko: '견본 책 「STUDIO DAYS」의 페이지', 'zh-Hant': '範例書《STUDIO DAYS》的頁面', 'zh-Hans': '示例书《STUDIO DAYS》的页面' }
   };
@@ -391,7 +393,8 @@ html[lang="ja"] .app, html[lang="en"] .app { font-family: 'BIZ UDPGothic', var(-
   };
   var MILLEAF = {
     booth: '',                                   /* 商品ページの URL が決まったら入れる。空ならショップのトップへ */
-    launchEnd: '2026-10-25T23:59:59+09:00'
+    launchEnd: '2026-10-25T23:59:59+09:00',
+    manual: 'https://mitori-mimicria.github.io/milleaf/'   /* Milleaf の説明書（Milleaf が作る・10-04 公開） */
   };
 
   /* ---------- 組み立て ---------- */
@@ -490,6 +493,7 @@ html[lang="ja"] .app, html[lang="en"] .app { font-family: 'BIZ UDPGothic', var(-
       dd.textContent = t('m.priceNormal');
     }
     if (MILLEAF.booth) document.getElementById('m-btn').href = MILLEAF.booth;
+    document.getElementById('m-manual').href = MILLEAF.manual + '?lang=' + lang;
   }
 
   function apply(l) {
