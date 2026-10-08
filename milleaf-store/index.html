@@ -131,7 +131,7 @@ h1, p, dl, dd { margin: 0; }
       <div><dt data-t="update.k">アップデート</dt><dd id="update"></dd></div>
       <div><dt data-t="lang.k">表示言語</dt><dd class="langs"><span lang="ja">日本語</span> / <span lang="en">English</span> / <span lang="ko">한국어</span> / <span lang="zh-Hant">繁體中文</span> / <span lang="zh-Hans">简体中文</span></dd></div>
     </dl>
-    <a class="btn" id="buy" href="#" data-t="btn" hidden>BOOTH で見る</a><span class="soon" id="soon" data-t="soon">BOOTH で 10月10日に公開します。</span><a class="manual" id="manual" href="https://mitori-mimicria.github.io/milleaf/" data-t="manual">使い方</a>
+    <a class="btn" id="buy" href="#" data-t="btn" hidden>BOOTH で見る</a><span class="soon" id="soon" data-t="soon">BOOTH で 10月10日に公開します。</span><a class="manual" id="addons" href="#" data-t="addons" hidden>公式追加テンプレート</a><a class="manual" id="manual" href="https://mitori-mimicria.github.io/milleaf/" data-t="manual">使い方</a>
   </div>
   <figure class="shots">
     <img src="../img/milleaf_spread_0203_1200.jpg" width="1200" height="851" alt="" data-alt="shot">
@@ -147,6 +147,7 @@ h1, p, dl, dd { margin: 0; }
   /* ---------- 売り場（新しいショップの商品ページの URL が分かったら入れる。空なら「公開します」の 1 行） ---------- */
   var STORE = {
     item: '',                                          /* BOOTH の商品ページ（10-08 オーナー: Milleaf 専用のショップ） */
+    addons: '',                                        /* 公式追加テンプレートの商品ページ。空なら出さない */
     library: 'https://accounts.booth.pm/library',      /* アップデートの受け取り */
     launchEnd: '2026-10-25T23:59:59+09:00',
     manual: 'https://mitori-mimicria.github.io/milleaf/'
@@ -214,6 +215,7 @@ h1, p, dl, dd { margin: 0; }
     'lang.k': { ja: '表示言語', en: 'Languages', ko: '표시 언어', 'zh-Hant': '顯示語言', 'zh-Hans': '显示语言' },
     btn: { ja: 'BOOTH で見る', en: 'View on BOOTH', ko: 'BOOTH에서 보기', 'zh-Hant': '在 BOOTH 查看', 'zh-Hans': '在 BOOTH 查看' },
     soon: { ja: 'BOOTH で 10月10日に公開します。', en: 'Coming to BOOTH on October 10.', ko: '10월 10일 BOOTH에서 공개합니다.', 'zh-Hant': '將於10月10日在 BOOTH 上架。', 'zh-Hans': '将于10月10日在 BOOTH 上架。' },
+    addons: { ja: '公式追加テンプレート', en: 'Official add-on templates', ko: '공식 추가 템플릿', 'zh-Hant': '官方追加範本', 'zh-Hans': '官方追加模板' },
     manual: { ja: '使い方', en: 'User guide', ko: '사용 방법', 'zh-Hant': '使用說明', 'zh-Hans': '使用说明' },
     shot: { ja: '見本の本「STUDIO DAYS」のページ', en: 'Pages from the sample book “STUDIO DAYS”', ko: '견본 책 「STUDIO DAYS」의 페이지', 'zh-Hant': '範例書《STUDIO DAYS》的頁面', 'zh-Hans': '示例书《STUDIO DAYS》的页面' }
   };
@@ -241,6 +243,9 @@ h1, p, dl, dd { margin: 0; }
     buy.hidden = !STORE.item;
     soon.hidden = !!STORE.item;
     if (STORE.item) buy.href = STORE.item;
+    var ad = document.getElementById('addons');
+    ad.hidden = !STORE.addons;
+    if (STORE.addons) ad.href = STORE.addons;
     document.getElementById('manual').href = STORE.manual + '?lang=' + lang;
     var up = document.getElementById('update');
     up.textContent = t('update');
