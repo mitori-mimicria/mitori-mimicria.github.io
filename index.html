@@ -2,9 +2,13 @@
 <html lang="ja">
 <head>
 <meta charset="utf-8">
+<script>
+/* 0.6.7 のアプリと更新のお知らせは、このページの #milleaf を開く。Milleaf の受け口へ送る（図鑑のページと分けた・10-08 本部 G044） */
+if (location.hash === '#milleaf') location.replace('milleaf-store/' + location.search);
+</script>
 <meta name="viewport" content="width=device-width, initial-scale=1">
 <title>Mimicria</title>
-<meta name="description" content="Mimicria — Mitori のサイト。デジタルのアート図鑑「Mimicria」と、VRChat の写真集を作るアプリ「Milleaf」。">
+<meta name="description" content="Mimicria — Mitori のサイト。デジタルのアート図鑑「Mimicria」。">
 <meta property="og:title" content="Mimicria">
 <meta property="og:description" content="An illustrated field guide of things that pretend to be people. By Mimicria — Mitori.">
 <meta property="og:type" content="website">
@@ -14,7 +18,7 @@
 <link rel="apple-touch-icon" href="img/mimicria_icon_180.png">
 <link rel="preconnect" href="https://fonts.googleapis.com">
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-<link href="https://fonts.googleapis.com/css2?family=BIZ+UDPGothic:wght@400;700&family=Shippori+Mincho:wght@500;700&display=swap" rel="stylesheet">
+<link href="https://fonts.googleapis.com/css2?family=Shippori+Mincho:wght@500;700&display=swap" rel="stylesheet">
 <style>
 :root {
   /* 図鑑の側（itch.io・Gumroad で使っている色と、表紙の金の罫） */
@@ -25,15 +29,6 @@
   --line: #2a2a2f;
   --gold: #b89a63;
   --link: #c9666b;
-  /* Milleaf の側（アプリの白い画面と差し色 1 色） */
-  --m-bg: #ffffff;
-  --m-panel: #f6f6f6;
-  --m-line: #e2e2e2;
-  --m-fg: #1f1f1f;
-  --m-mute: #5d5d5d;
-  --m-accent: #2f63c9;
-  --m-accent-dark: #2754ad;
-  --m-accent-soft: #e8effb;
 
   --serif: 'Shippori Mincho', 'Yu Mincho', 'Hiragino Mincho ProN', serif;
   --sans: system-ui, -apple-system, 'Hiragino Sans', 'Yu Gothic UI', 'Yu Gothic', Meiryo, sans-serif;
@@ -118,37 +113,6 @@ ul { padding: 0; list-style: none; }
 .book .facts { margin-top: 12px; font-size: 13px; }
 .book .stores { flex-direction: column; gap: 4px; margin-top: 12px; font-size: 13px; }
 
-/* ---------- Milleaf（アプリの見た目に切り替える） ---------- */
-.app { background: var(--m-bg); color: var(--m-fg); font-family: var(--sans); }
-/* 和文書体は日本語と英語のときだけ（韓・中は各言語の字形で出す） */
-html[lang="ja"] .app, html[lang="en"] .app { font-family: 'BIZ UDPGothic', var(--sans); }
-.app a { color: var(--m-accent); }
-.app ::selection { background: var(--m-accent-soft); color: var(--m-fg); }
-.app :focus-visible { outline-color: var(--m-accent); }
-.app-in { display: grid; grid-template-columns: minmax(0, 1fr) minmax(0, 1.25fr); gap: clamp(32px, 5vw, 72px); padding-top: 88px; padding-bottom: 96px; }
-.app-name { display: flex; align-items: center; gap: 12px; }
-.app-name img { width: 44px; height: 44px; border-radius: 10px; }
-.app-name h2 { font-size: 26px; font-weight: 700; letter-spacing: 0.02em; }
-.app .copy { word-break: auto-phrase; margin-top: 28px; font-size: clamp(22px, 2.6vw, 28px); font-weight: 700; line-height: 1.5; text-wrap: balance; }
-.app .desc { margin-top: 14px; max-width: 32em; }
-.spec { margin-top: 28px; border-top: 1px solid var(--m-line); font-size: 14px; }
-.spec div { display: grid; grid-template-columns: 8em 1fr; gap: 12px; padding: 10px 0; border-bottom: 1px solid var(--m-line); }
-.spec dt { color: var(--m-mute); }
-.langs span { white-space: nowrap; }
-.price-note { display: block; color: var(--m-mute); font-size: 13px; }
-.btn {
-  display: inline-block; margin-top: 28px; padding: 12px 22px; border-radius: 4px;
-  background: var(--m-accent); color: var(--m-bg) !important; text-decoration: none; font-weight: 700;
-}
-.btn:hover { background: var(--m-accent-dark); }
-.manual { display: inline-block; margin: 28px 0 0 18px; color: var(--m-accent); font-weight: 700; }
-.maker { font-family: var(--sans); margin-top: 16px;  /* BIZ UDPGothic は — が細すぎて消えて見える */
-  font-size: 13px; color: var(--m-mute); }
-.shots { display: flex; flex-direction: column; gap: 20px; }
-.shots img { border: 1px solid var(--m-line); }
-.shots img + img { width: 82%; align-self: flex-end; }
-.shots figcaption { font-size: 12px; color: var(--m-mute); }
-
 /* ---------- 奥付 ---------- */
 .foot { display: flex; flex-wrap: wrap; gap: 8px 24px; align-items: baseline; padding-top: 32px; padding-bottom: 40px; font-size: 13px; color: var(--mute); }
 .foot .credit { margin-right: auto; font-family: var(--serif); color: var(--fg); letter-spacing: 0.04em; }
@@ -157,7 +121,6 @@ html[lang="ja"] .app, html[lang="en"] .app { font-family: 'BIZ UDPGothic', var(-
   .latest { grid-template-columns: 1fr; align-items: start; padding-top: 48px; padding-bottom: 72px; }
   .latest .cover { max-width: 300px; }
   .shelf { grid-template-columns: repeat(2, minmax(0, 1fr)); }
-  .app-in { grid-template-columns: 1fr; padding-top: 64px; padding-bottom: 72px; }
 }
 @media (max-width: 560px) {
   .top { flex-wrap: wrap; gap: 12px 20px; }
@@ -173,7 +136,6 @@ html[lang="ja"] .app, html[lang="en"] .app { font-family: 'BIZ UDPGothic', var(-
 <header class="wrap top">
   <a class="mark" href="./">Mimicria</a>
   <nav>
-    <a href="#milleaf">Milleaf</a>
     <a href="#books" data-t="nav.books">図鑑シリーズ</a>
   </nav>
   <div class="lang">
@@ -186,35 +148,6 @@ html[lang="ja"] .app, html[lang="en"] .app { font-family: 'BIZ UDPGothic', var(-
 </header>
 
 <main>
-
-  <section class="app" id="milleaf">
-    <div class="wrap app-in">
-      <div>
-        <div class="app-name">
-          <img src="img/milleaf_icon_128.png" alt="" width="44" height="44">
-          <h2>Milleaf</h2>
-        </div>
-        <p class="copy" data-t="m.copy">撮りためた思い出を、本にしませんか？</p>
-        <p class="desc" data-t="m.desc">Milleaf は、VRChat のスクリーンショットから写真集を作る Windows アプリです。フォルダを選ぶと、似た写真をまとめて、テンプレートに合わせて写真を並べます。</p>
-        <dl class="spec">
-          <div><dt data-t="m.release.k">発売日</dt><dd data-t="m.release">2026年10月10日（土）</dd></div>
-          <div><dt data-t="m.price.k">価格</dt><dd id="m-price"></dd></div>
-          <div><dt data-t="m.trial.k">体験版</dt><dd data-t="m.trial">無料。書き出しは1日3回までです。</dd></div>
-          <div><dt data-t="m.out.k">書き出せる形</dt><dd data-t="m.out">PDF、連番画像、電子書籍（EPUB）、印刷所の入稿データ、VRChat の中で読める本（unitypackage）</dd></div>
-          <div><dt data-t="m.env.k">動作環境</dt><dd>Windows 10 / 11（64bit）</dd></div>
-          <div><dt data-t="m.update.k">アップデート</dt><dd id="m-update"></dd></div>
-          <div><dt data-t="m.lang.k">表示言語</dt><dd class="langs"><span lang="ja">日本語</span> / <span lang="en">English</span> / <span lang="ko">한국어</span> / <span lang="zh-Hant">繁體中文</span> / <span lang="zh-Hans">简体中文</span></dd></div>
-        </dl>
-        <a class="btn" id="m-btn" href="https://mitori-mimicria.booth.pm/" data-t="m.btn">BOOTH で見る</a><a class="manual" id="m-manual" href="https://mitori-mimicria.github.io/milleaf/" data-t="m.manual">使い方</a>
-        <p class="maker" data-t="m.maker">作者: Mimicria — Mitori</p>
-      </div>
-      <figure class="shots" style="margin:0">
-        <img src="img/milleaf_spread_0203_1200.jpg" width="1200" height="851" alt="" data-alt="m.shot">
-        <img src="img/milleaf_spread_1415_1200.jpg" width="1200" height="851" alt="" data-alt="m.shot" loading="lazy">
-        <figcaption data-t="m.shot">見本の本「STUDIO DAYS」のページ</figcaption>
-      </figure>
-    </div>
-  </section>
 
   <div id="books">
     <section class="wrap intro">
@@ -238,7 +171,7 @@ html[lang="ja"] .app, html[lang="en"] .app { font-family: 'BIZ UDPGothic', var(-
 (function () {
   'use strict';
 
-  /* ---------- 言語（Milleaf と同じ 5 言語・同じ決め方） ---------- */
+  /* ---------- 言語（5 言語） ---------- */
   var LANGS = [
     { id: 'ja', label: '日本語' },
     { id: 'en', label: 'English' },
@@ -288,45 +221,6 @@ html[lang="ja"] .app, html[lang="en"] .app { font-family: 'BIZ UDPGothic', var(-
     v5date: { ja: '2026年10月10日', en: 'October 10, 2026', ko: '2026년 10월 10일', 'zh-Hant': '2026年10月10日', 'zh-Hans': '2026年10月10日' },
     part1: { ja: '第1部　鉱物と結晶の少女たち', en: 'Part 1: The Girls of Minerals & Crystals', ko: '제1부 The Girls of Minerals & Crystals', 'zh-Hant': '第1部 The Girls of Minerals & Crystals', 'zh-Hans': '第1部 The Girls of Minerals & Crystals' },
     part1sub: { ja: '鉱物擬人化図鑑　vol. I〜IV', en: 'Minerals, personified. vol. I–IV', ko: '광물 의인화 도감 vol. I–IV', 'zh-Hant': '礦物擬人化圖鑑 vol. I–IV', 'zh-Hans': '矿物拟人化图鉴 vol. I–IV' },
-
-    'm.copy': { ja: '撮りためた思い出を、本にしませんか？', en: 'Turn the memories you have saved up into a book.', ko: '모아 둔 추억을 책으로 만들어 보세요.', 'zh-Hant': '把累積的回憶，做成一本書吧。', 'zh-Hans': '把积攒的回忆，做成一本书吧。' },
-    'm.desc': {
-      ja: 'Milleaf は、VRChat のスクリーンショットから写真集を作る Windows アプリです。フォルダを選ぶと、似た写真をまとめて、テンプレートに合わせて写真を並べます。',
-      en: 'Milleaf is a Windows app that makes photo books from your VRChat screenshots. Choose a folder, and it groups similar shots and lays out the pages from a template.',
-      ko: 'Milleaf는 VRChat 스크린샷으로 사진집을 만드는 Windows 앱입니다. 폴더를 고르면 비슷한 사진을 묶어 템플릿에 맞춰 페이지를 짭니다.',
-      'zh-Hant': 'Milleaf 是用 VRChat 截圖製作寫真集的 Windows 應用程式。選擇資料夾後，會把相似的照片整理在一起，並依照範本排出頁面。',
-      'zh-Hans': 'Milleaf 是用 VRChat 截图制作写真集的 Windows 应用。选择文件夹后，会把相似的照片归在一起，并按照模板排好页面。'
-    },
-    'm.release.k': { ja: '発売日', en: 'Release', ko: '출시일', 'zh-Hant': '發售日', 'zh-Hans': '发售日' },
-    'm.release': { ja: '2026年10月10日（土）', en: 'Saturday, October 10, 2026', ko: '2026년 10월 10일(토)', 'zh-Hant': '2026年10月10日（六）', 'zh-Hans': '2026年10月10日（周六）' },
-    'm.price.k': { ja: '価格', en: 'Price', ko: '가격', 'zh-Hant': '價格', 'zh-Hans': '价格' },
-    'm.priceLaunch': {
-      ja: ['発売記念 980円', '10月25日（日）23:59まで。10月26日からは 1,500円です。'],
-      /* 日本語は BOOTH（円）、ほかの言語は Gumroad（ドル）で売る（10-04 本部 G018） */
-      en: ['Launch price $5.99', 'Until 23:59 JST on Sunday, October 25. $9.99 from October 26.'],
-      ko: ['출시 기념 5.99달러', '10월 25일(일) 23:59(일본 시간)까지. 10월 26일부터는 9.99달러입니다.'],
-      'zh-Hant': ['上市紀念價 5.99 美元', '至10月25日（日）23:59（日本時間）。10月26日起為 9.99 美元。'],
-      'zh-Hans': ['上市纪念价 5.99 美元', '至10月25日（周日）23:59（日本时间）。10月26日起为 9.99 美元。']
-    },
-    'm.priceNormal': { ja: '1,500円', en: '$9.99', ko: '9.99달러', 'zh-Hant': '9.99 美元', 'zh-Hans': '9.99 美元' },
-    'm.update.k': { ja: 'アップデート', en: 'Updates', ko: '업데이트', 'zh-Hant': '更新', 'zh-Hans': '更新' },
-    'm.update': { ja: '無料。買ったお店のライブラリから受け取れます: ', en: 'Free. Download them from the library of the store you bought from: ', ko: '무료. 구매한 스토어의 라이브러리에서 받을 수 있습니다: ', 'zh-Hant': '免費。請從購買商店的資料庫下載：', 'zh-Hans': '免费。请从购买商店的资料库下载：' },
-    'm.trial.k': { ja: '体験版', en: 'Trial', ko: '체험판', 'zh-Hant': '體驗版', 'zh-Hans': '体验版' },
-    'm.trial': { ja: '無料。書き出しは1日3回までです。', en: 'Free. Up to 3 exports a day.', ko: '무료. 내보내기는 하루 3회까지입니다.', 'zh-Hant': '免費。每天最多可匯出3次。', 'zh-Hans': '免费。每天最多可导出3次。' },
-    'm.out.k': { ja: '書き出せる形', en: 'Export formats', ko: '내보내기 형식', 'zh-Hant': '匯出格式', 'zh-Hans': '导出格式' },
-    'm.out': {
-      ja: 'PDF、連番画像、電子書籍（EPUB）、印刷所の入稿データ、VRChat の中で読める本（unitypackage）',
-      en: 'PDF, numbered images, EPUB, print-ready files for print shops in Japan, and a book you can read inside VRChat (unitypackage)',
-      ko: 'PDF, 연번 이미지, 전자책(EPUB), 일본 인쇄소용 입고 데이터, VRChat 안에서 읽을 수 있는 책(unitypackage)',
-      'zh-Hant': 'PDF、連號圖片、電子書（EPUB）、交給日本印刷廠的印刷資料、可在 VRChat 中閱讀的書（unitypackage）',
-      'zh-Hans': 'PDF、序号图片、电子书（EPUB）、交给日本印刷厂的印刷数据、可在 VRChat 中阅读的书（unitypackage）'
-    },
-    'm.env.k': { ja: '動作環境', en: 'Requirements', ko: '동작 환경', 'zh-Hant': '執行環境', 'zh-Hans': '运行环境' },
-    'm.lang.k': { ja: '表示言語', en: 'Languages', ko: '표시 언어', 'zh-Hant': '顯示語言', 'zh-Hans': '显示语言' },
-    'm.btn': { ja: 'BOOTH で見る', en: 'View on Gumroad', ko: 'Gumroad에서 보기', 'zh-Hant': '在 Gumroad 查看', 'zh-Hans': '在 Gumroad 查看' },
-    'm.manual': { ja: '使い方', en: 'User guide', ko: '사용 방법', 'zh-Hant': '使用說明', 'zh-Hans': '使用说明' },
-    'm.maker': { ja: '作者: Mimicria — Mitori', en: 'Made by Mimicria — Mitori', ko: '만든 사람: Mimicria — Mitori', 'zh-Hant': '作者：Mimicria — Mitori', 'zh-Hans': '作者：Mimicria — Mitori' },
-    'm.shot': { ja: '見本の本「STUDIO DAYS」のページ', en: 'Pages from the sample book “STUDIO DAYS”', ko: '견본 책 「STUDIO DAYS」의 페이지', 'zh-Hant': '範例書《STUDIO DAYS》的頁面', 'zh-Hans': '示例书《STUDIO DAYS》的页面' }
   };
 
   /* ---------- 図鑑のデータ（販路の URL が分かったら空欄を埋める） ---------- */
@@ -396,14 +290,6 @@ html[lang="ja"] .app, html[lang="en"] .app { font-family: 'BIZ UDPGothic', var(-
       'zh-Hans': '收录10种云，走遍国际分类的十种云属，由高到低依次排列。最后两种是由下往上发展的积云与积雨云。'
     }
   };
-  var MILLEAF = {
-    booth: '',                                   /* 商品ページの URL が決まったら入れる。空ならショップのトップへ（日本語のとき） */
-    gumroad: '',                                 /* Gumroad の商品ページの URL（10/10 に公開）。空ならストアのトップへ（ほかの言語のとき） */
-    library: { BOOTH: 'https://accounts.booth.pm/library', Gumroad: 'https://app.gumroad.com/library' },  /* アップデートの受け取り */
-    launchEnd: '2026-10-25T23:59:59+09:00',
-    manual: 'https://mitori-mimicria.github.io/milleaf/'   /* Milleaf の説明書（Milleaf が作る・10-04 公開） */
-  };
-
   /* ---------- 組み立て ---------- */
   var lang = 'ja';
   function t(key) { var v = T[key]; return v ? (v[lang] || v.en) : key; }
@@ -489,29 +375,6 @@ html[lang="ja"] .app, html[lang="en"] .app { font-family: 'BIZ UDPGothic', var(-
     root.appendChild(shelf);
   }
 
-  function renderMilleaf() {
-    var dd = document.getElementById('m-price');
-    dd.textContent = '';
-    if (Date.now() <= Date.parse(MILLEAF.launchEnd)) {
-      var p = t('m.priceLaunch');
-      dd.appendChild(document.createTextNode(p[0]));
-      dd.appendChild(el('span', 'price-note', p[1]));
-    } else {
-      dd.textContent = t('m.priceNormal');
-    }
-    document.getElementById('m-btn').href = lang === 'ja'
-      ? (MILLEAF.booth || 'https://mitori-mimicria.booth.pm/')
-      : (MILLEAF.gumroad || 'https://mimicria.gumroad.com/');
-    document.getElementById('m-manual').href = MILLEAF.manual + '?lang=' + lang;
-    var up = document.getElementById('m-update');
-    up.textContent = t('m.update');
-    Object.keys(MILLEAF.library).forEach(function (name, i) {
-      if (i) up.appendChild(document.createTextNode(' / '));
-      var a = el('a', null, name); a.href = MILLEAF.library[name]; a.rel = 'noopener';
-      up.appendChild(a);
-    });
-  }
-
   function apply(l) {
     lang = l;
     document.documentElement.lang = l;
@@ -520,7 +383,6 @@ html[lang="ja"] .app, html[lang="en"] .app { font-family: 'BIZ UDPGothic', var(-
     document.getElementById('lang-cur').textContent = LANGS.filter(function (x) { return x.id === l; })[0].label;
     renderLatest();
     renderPart1();
-    renderMilleaf();
     buildMenu();
   }
 
