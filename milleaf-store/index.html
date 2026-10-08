@@ -146,8 +146,9 @@ h1, p, dl, dd { margin: 0; }
 
   /* ---------- 売り場（新しいショップの商品ページの URL が分かったら入れる。空なら「公開します」の 1 行） ---------- */
   var STORE = {
-    item: '',                                          /* BOOTH の商品ページ（10-08 オーナー: Milleaf 専用のショップ） */
-    addons: '',                                        /* 公式追加テンプレートの商品ページ。空なら出さない */
+    item: 'https://mimicria.booth.pm/items/8957446',   /* BOOTH の商品ページ（10-08 オーナー: Milleaf 専用のショップ mimicria） */
+    addons: 'https://mimicria.booth.pm/items/8957481', /* 公式追加テンプレートの商品ページ。空なら出さない */
+    opensAt: '2026-10-10T10:00:00+09:00',             /* これより前は「公開します」の 1 行だけ（ショップは 10/10 の朝まで非公開） */
     library: 'https://accounts.booth.pm/library',      /* アップデートの受け取り */
     launchEnd: '2026-10-25T23:59:59+09:00',
     manual: 'https://mitori-mimicria.github.io/milleaf/'
@@ -239,12 +240,13 @@ h1, p, dl, dd { margin: 0; }
     } else {
       dd.textContent = t('priceNormal');
     }
+    var isOpen = Date.now() >= Date.parse(STORE.opensAt);
     var buy = document.getElementById('buy'), soon = document.getElementById('soon');
-    buy.hidden = !STORE.item;
-    soon.hidden = !!STORE.item;
+    buy.hidden = !(isOpen && STORE.item);
+    soon.hidden = !buy.hidden;
     if (STORE.item) buy.href = STORE.item;
     var ad = document.getElementById('addons');
-    ad.hidden = !STORE.addons;
+    ad.hidden = !(isOpen && STORE.addons);
     if (STORE.addons) ad.href = STORE.addons;
     document.getElementById('manual').href = STORE.manual + '?lang=' + lang;
     var up = document.getElementById('update');
