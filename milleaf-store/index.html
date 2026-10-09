@@ -96,6 +96,12 @@ h1, p, dl, dd { margin: 0; }
 .shots img { border: 1px solid var(--line); }
 .shots img + img { width: 82%; align-self: flex-end; }
 .shots figcaption { font-size: 12px; color: var(--mute); }
+/* アプリの画面（10-10 Milleaf の宣材 5 枚・画像の中の文は日本語だけ） */
+.screens { padding-bottom: 96px; }
+.screens h2 { margin: 0; font-size: 20px; }
+.screens-note { margin-top: 6px; color: var(--mute); font-size: 14px; }
+.screen-grid { display: grid; grid-template-columns: repeat(auto-fill, minmax(min(100%, 320px), 1fr)); gap: 20px; margin-top: 20px; }
+.screen-grid img { border: 1px solid var(--line); }
 
 @media (max-width: 860px) {
   .app-in { grid-template-columns: 1fr; padding-top: 48px; padding-bottom: 72px; }
@@ -140,6 +146,18 @@ h1, p, dl, dd { margin: 0; }
   </figure>
 </main>
 
+<section class="wrap screens" aria-labelledby="screens-h">
+  <h2 id="screens-h" data-t="screens">アプリの画面</h2>
+  <p class="screens-note" id="screens-note" data-t="screensNote" hidden></p>
+  <div class="screen-grid">
+    <img src="../img/milleaf_screen_01_quick_1200.jpg" width="1200" height="1200" alt="" data-alt="sc1" loading="lazy">
+    <img src="../img/milleaf_screen_02_photos_1200.jpg" width="1200" height="1200" alt="" data-alt="sc2" loading="lazy">
+    <img src="../img/milleaf_screen_03_edit_1200.jpg" width="1200" height="1200" alt="" data-alt="sc3" loading="lazy">
+    <img src="../img/milleaf_screen_04_editor_1200.jpg" width="1200" height="1200" alt="" data-alt="sc4" loading="lazy">
+    <img src="../img/milleaf_screen_05_export_1200.jpg" width="1200" height="1200" alt="" data-alt="sc5" loading="lazy">
+  </div>
+</section>
+
 <script>
 (function () {
   'use strict';
@@ -183,10 +201,11 @@ h1, p, dl, dd { margin: 0; }
     copy: { ja: '撮りためた思い出を、本にしませんか？', en: 'Turn the memories you have saved up into a book.', ko: '모아 둔 추억을 책으로 만들어 보세요.', 'zh-Hant': '把累積的回憶，做成一本書吧。', 'zh-Hans': '把积攒的回忆，做成一本书吧。' },
     desc: {
       ja: 'Milleaf は、VRChat のスクリーンショットから写真集を作る Windows アプリです。フォルダを選ぶと、似た写真をまとめて、テンプレートに合わせて写真を並べます。',
-      en: 'Milleaf is a Windows app that makes photo books from your VRChat screenshots. Choose a folder, and it groups similar shots and lays out the pages from a template.',
-      ko: 'Milleaf는 VRChat 스크린샷으로 사진집을 만드는 Windows 앱입니다. 폴더를 고르면 비슷한 사진을 묶어 템플릿에 맞춰 페이지를 짭니다.',
-      'zh-Hant': 'Milleaf 是用 VRChat 截圖製作寫真集的 Windows 應用程式。選擇資料夾後，會把相似的照片整理在一起，並依照範本排出頁面。',
-      'zh-Hans': 'Milleaf 是用 VRChat 截图制作写真集的 Windows 应用。选择文件夹后，会把相似的照片归在一起，并按照模板排好页面。'
+      /* 10-10 オーナー q-store-arrange-i18n: 訳も日本語の「写真を並べます」に合わせた（「ページを組む」の意味をやめた） */
+      en: 'Milleaf is a Windows app that makes photo books from your VRChat screenshots. Choose a folder, and it groups similar shots and arranges the photos to fit a template.',
+      ko: 'Milleaf는 VRChat 스크린샷으로 사진집을 만드는 Windows 앱입니다. 폴더를 고르면 비슷한 사진을 묶어 템플릿에 맞춰 사진을 배치합니다.',
+      'zh-Hant': 'Milleaf 是用 VRChat 截圖製作寫真集的 Windows 應用程式。選擇資料夾後，會把相似的照片整理在一起，並依照範本排列照片。',
+      'zh-Hans': 'Milleaf 是用 VRChat 截图制作写真集的 Windows 应用。选择文件夹后，会把相似的照片归在一起，并按照模板排列照片。'
     },
     'release.k': { ja: '発売日', en: 'Release', ko: '출시일', 'zh-Hant': '發售日', 'zh-Hans': '发售日' },
     release: { ja: '2026年10月10日（土）', en: 'Saturday, October 10, 2026', ko: '2026년 10월 10일(토)', 'zh-Hant': '2026年10月10日（六）', 'zh-Hans': '2026年10月10日（周六）' },
@@ -218,7 +237,20 @@ h1, p, dl, dd { margin: 0; }
     soon: { ja: 'BOOTH で 10月10日に公開します。', en: 'Coming to BOOTH on October 10.', ko: '10월 10일 BOOTH에서 공개합니다.', 'zh-Hant': '將於10月10日在 BOOTH 上架。', 'zh-Hans': '将于10月10日在 BOOTH 上架。' },
     addons: { ja: '追加テンプレート', en: 'Add-on templates', ko: '추가 템플릿', 'zh-Hant': '追加範本', 'zh-Hans': '追加模板' },  /* 10-08 オーナー: 商品名から「公式」を外した */
     manual: { ja: '使い方', en: 'User guide', ko: '사용 방법', 'zh-Hant': '使用說明', 'zh-Hans': '使用说明' },
-    shot: { ja: '見本の本「STUDIO DAYS」のページ', en: 'Pages from the sample book “STUDIO DAYS”', ko: '견본 책 「STUDIO DAYS」의 페이지', 'zh-Hant': '範例書《STUDIO DAYS》的頁面', 'zh-Hans': '示例书《STUDIO DAYS》的页面' }
+    shot: { ja: '見本の本「STUDIO DAYS」のページ', en: 'Pages from the sample book “STUDIO DAYS”', ko: '견본 책 「STUDIO DAYS」의 페이지', 'zh-Hant': '範例書《STUDIO DAYS》的頁面', 'zh-Hans': '示例书《STUDIO DAYS》的页面' },
+    screens: { ja: 'アプリの画面', en: 'Inside the app', ko: '앱 화면', 'zh-Hant': '應用程式畫面', 'zh-Hans': '应用画面' },
+    screensNote: {
+      ja: '',
+      en: 'The screens below are in Japanese. The app itself can also be used in English.',
+      ko: '아래 화면은 일본어입니다. 앱은 한국어로도 사용할 수 있습니다.',
+      'zh-Hant': '以下畫面為日文。應用程式也能以繁體中文使用。',
+      'zh-Hans': '以下画面为日文。应用也能以简体中文使用。'
+    },
+    sc1: { ja: '5 種類のテンプレートで並べた本から 1 つを選ぶ画面', en: 'Choosing one of five template layouts', ko: '다섯 가지 템플릿 중 하나를 고르는 화면', 'zh-Hant': '從五種範本中選擇一種的畫面', 'zh-Hans': '从五种模板中选择一种的画面' },
+    sc2: { ja: '写真を選ぶ画面（連写や似た写真をまとめる）', en: 'Picking photos, with bursts and similar shots grouped together', ko: '사진 고르기 화면(연사와 비슷한 사진을 묶음)', 'zh-Hant': '挑選照片的畫面（連拍與相似照片會整理在一起）', 'zh-Hans': '挑选照片的画面（连拍和相似照片会归在一起）' },
+    sc3: { ja: '写真の編集画面（モザイク・ぼかし・色の調整）', en: 'Editing a photo: mosaic, blur and color presets', ko: '사진 편집 화면(모자이크·흐림·색 조정)', 'zh-Hant': '編輯照片的畫面（馬賽克、模糊、色彩調整）', 'zh-Hans': '编辑照片的画面（马赛克、模糊、色彩调整）' },
+    sc4: { ja: '本の編集画面（見開きを見たまま位置や大きさを直す）', en: 'Editing the book while viewing each spread', ko: '책 편집 화면(펼친 면을 보며 위치와 크기를 조정)', 'zh-Hant': '編輯書本的畫面（直接在跨頁上調整位置與大小）', 'zh-Hans': '编辑书本的画面（直接在跨页上调整位置和大小）' },
+    sc5: { ja: '書き出しの画面（PDF・電子書籍・連番画像・印刷所の入稿データ・VRChat 用の本）', en: 'Export options: PDF, EPUB, numbered images, print files and a book for VRChat', ko: '내보내기 화면(PDF·전자책·연번 이미지·인쇄소 입고 데이터·VRChat용 책)', 'zh-Hant': '匯出的畫面（PDF、電子書、連號圖片、印刷資料、VRChat 用的書）', 'zh-Hans': '导出的画面（PDF、电子书、序号图片、印刷数据、VRChat 用的书）' }
   };
 
   var lang = 'ja';
@@ -249,6 +281,7 @@ h1, p, dl, dd { margin: 0; }
     ad.hidden = !(isOpen && STORE.addons);
     if (STORE.addons) ad.href = STORE.addons;
     document.getElementById('manual').href = STORE.manual + '?lang=' + lang;
+    document.getElementById('screens-note').hidden = lang === 'ja';
     var up = document.getElementById('update');
     up.textContent = t('update');
     var a = el('a', null, t('library')); a.href = STORE.library; a.rel = 'noopener';
