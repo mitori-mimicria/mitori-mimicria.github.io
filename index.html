@@ -8,7 +8,7 @@ if (location.hash === '#milleaf') location.replace('milleaf-store/' + location.s
 </script>
 <meta name="viewport" content="width=device-width, initial-scale=1">
 <title>Mimicria</title>
-<meta name="description" content="Mimicria — Mitori のサイト。デジタルのアート図鑑「Mimicria」。">
+<meta name="description" content="Mimicria — Mitoriのサイト。デジタルのアート図鑑「Mimicria」。">
 <meta property="og:title" content="Mimicria">
 <meta property="og:description" content="An illustrated field guide of things that pretend to be people. By Mimicria — Mitori.">
 <meta property="og:type" content="website">
@@ -40,7 +40,7 @@ html { -webkit-text-size-adjust: 100%; }
 body {
   margin: 0; background: var(--bg); color: var(--fg);
   font: 16px/1.8 var(--sans);
-  line-break: strict; text-spacing-trim: normal; text-autospace: normal;
+  line-break: strict; text-spacing-trim: normal;  /* 和欧のアキは付けない（10-10 オーナー: 半角英数の前後を空けると AI っぽい） */
 }
 :lang(en) body, body:lang(en) { line-height: 1.6; }
 ::selection { background: var(--gold); color: var(--bg); }
@@ -203,7 +203,7 @@ ul { padding: 0; list-style: none; }
     out: { ja: '配信日', en: 'Release' },
     edJa: { ja: '日本語版', en: 'Japanese edition' },
     edEn: { ja: '英語版', en: 'English edition' },
-    kindleOnly: { ja: 'Kindle だけで配信します（日本語版・英語版）。', en: 'Kindle only (Japanese and English editions).' },
+    kindleOnly: { ja: 'Kindleだけで配信します（日本語版・英語版）。', en: 'Kindle only (Japanese and English editions).' },
     v5date: { ja: '2026年10月10日', en: 'October 10, 2026' },
     part1: { ja: '第1部　鉱物と結晶の少女たち', en: 'Part 1: The Girls of Minerals & Crystals' },
     part1sub: { ja: '鉱物擬人化図鑑　vol. I〜IV', en: 'Minerals, personified. vol. I–IV' },
@@ -252,7 +252,7 @@ ul { padding: 0; list-style: none; }
   var LATEST = {
     n: 5, roman: 'V', pages: 29, yen: '¥400', usd: '$3.99',
     release: '2026-10-10T00:00:00+09:00',
-    links: { kindleJa: '', kindleEn: '' },
+    links: { kindleJa: 'https://www.amazon.co.jp/dp/B0HLX4YNCL', kindleEn: 'https://www.amazon.com/dp/B0HLX7123N' },  /* 10-10 配信（Mimicria の 90_status の ASIN・公開中のページで確かめた） */
     title: { ja: '雲と大気の少女たち', other: 'The Girls of Clouds & Atmosphere' },
     genre: { ja: '気象擬人化図鑑', en: 'Weather, personified' },
     catch: { ja: '形を持たないものにも、名前がある。', en: 'Even what has no shape has a name.' },
