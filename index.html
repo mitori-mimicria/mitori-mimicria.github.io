@@ -34,9 +34,6 @@ if (location.hash === '#milleaf') location.replace('milleaf-store/' + location.s
   --sans: system-ui, -apple-system, 'Hiragino Sans', 'Yu Gothic UI', 'Yu Gothic', Meiryo, sans-serif;
   --gutter: clamp(16px, 4vw, 48px);
 }
-:lang(ko) { --sans: system-ui, -apple-system, 'Apple SD Gothic Neo', 'Malgun Gothic', sans-serif; }
-:lang(zh-Hant) { --sans: system-ui, -apple-system, 'PingFang TC', 'Microsoft JhengHei', sans-serif; }
-:lang(zh-Hans) { --sans: system-ui, -apple-system, 'PingFang SC', 'Microsoft YaHei', sans-serif; }
 
 * { box-sizing: border-box; }
 html { -webkit-text-size-adjust: 100%; }
@@ -171,13 +168,10 @@ ul { padding: 0; list-style: none; }
 (function () {
   'use strict';
 
-  /* ---------- 言語（5 言語） ---------- */
+  /* ---------- 言語（日本語と英語だけ・10-09 オーナー。Milleaf の受け口 milleaf-store/ は 5 言語のまま） ---------- */
   var LANGS = [
     { id: 'ja', label: '日本語' },
-    { id: 'en', label: 'English' },
-    { id: 'ko', label: '한국어' },
-    { id: 'zh-Hant', label: '繁體中文' },
-    { id: 'zh-Hans', label: '简体中文' }
+    { id: 'en', label: 'English' }
   ];
   var STORAGE_KEY = 'mimicria.lang';
   function isLang(v) { return LANGS.some(function (l) { return l.id === v; }); }
@@ -190,37 +184,29 @@ ul { padding: 0; list-style: none; }
     } catch (e) { /* 保存できない環境 */ }
     var nav = (navigator.language || 'en').toLowerCase();
     if (nav.indexOf('ja') === 0) return 'ja';
-    if (nav.indexOf('ko') === 0) return 'ko';
-    if (nav.indexOf('zh') === 0) return /tw|hk|mo|hant/.test(nav) ? 'zh-Hant' : 'zh-Hans';
     return 'en';
   }
 
   /* ---------- 文 ---------- */
   var T = {
-    'nav.books': { ja: '図鑑シリーズ', en: 'Field guide series', ko: '도감 시리즈', 'zh-Hant': '圖鑑系列', 'zh-Hans': '图鉴系列' },
+    'nav.books': { ja: '図鑑シリーズ', en: 'Field guide series' },
     intro: {
       ja: '「人のふりをしているもの」を観察して記録する、デジタルのアート図鑑です。',
-      en: 'An illustrated field guide of things that pretend to be people.',
-      ko: '‘사람인 척하는 것’을 관찰하고 기록하는 디지털 아트 도감입니다.',
-      'zh-Hant': '觀察並記錄「假裝成人的東西」的數位藝術圖鑑。',
-      'zh-Hans': '观察并记录“假装成人的东西”的数字艺术图鉴。'
+      en: 'An illustrated field guide of things that pretend to be people.'
     },
     ai: {
       ja: '生成AIを利用し、選定と加筆・修正を行って制作しています。',
-      en: 'Made with generative AI, with selection, revision and correction by hand.',
-      ko: '생성형 AI를 이용하고, 선별과 가필·수정을 거쳐 제작했습니다.',
-      'zh-Hant': '使用生成式 AI，並經過挑選與加筆、修正製作而成。',
-      'zh-Hans': '使用生成式 AI，并经过挑选与加笔、修正制作而成。'
+      en: 'Made with generative AI, with selection, revision and correction by hand.'
     },
-    pages: { ja: 'ページ数', en: 'Pages', ko: '페이지', 'zh-Hant': '頁數', 'zh-Hans': '页数' },
-    price: { ja: '価格', en: 'Price', ko: '가격', 'zh-Hant': '價格', 'zh-Hans': '价格' },
-    out: { ja: '配信日', en: 'Release', ko: '배포일', 'zh-Hant': '上架日', 'zh-Hans': '上架日' },
-    edJa: { ja: '日本語版', en: 'Japanese edition', ko: '일본어판', 'zh-Hant': '日文版', 'zh-Hans': '日文版' },
-    edEn: { ja: '英語版', en: 'English edition', ko: '영어판', 'zh-Hant': '英文版', 'zh-Hans': '英文版' },
-    kindleOnly: { ja: 'Kindle だけで配信します（日本語版・英語版）。', en: 'Kindle only (Japanese and English editions).', ko: 'Kindle에서만 배포합니다(일본어판·영어판).', 'zh-Hant': '僅在 Kindle 上架（日文版、英文版）。', 'zh-Hans': '仅在 Kindle 上架（日文版、英文版）。' },
-    v5date: { ja: '2026年10月10日', en: 'October 10, 2026', ko: '2026년 10월 10일', 'zh-Hant': '2026年10月10日', 'zh-Hans': '2026年10月10日' },
-    part1: { ja: '第1部　鉱物と結晶の少女たち', en: 'Part 1: The Girls of Minerals & Crystals', ko: '제1부 The Girls of Minerals & Crystals', 'zh-Hant': '第1部 The Girls of Minerals & Crystals', 'zh-Hans': '第1部 The Girls of Minerals & Crystals' },
-    part1sub: { ja: '鉱物擬人化図鑑　vol. I〜IV', en: 'Minerals, personified. vol. I–IV', ko: '광물 의인화 도감 vol. I–IV', 'zh-Hant': '礦物擬人化圖鑑 vol. I–IV', 'zh-Hans': '矿物拟人化图鉴 vol. I–IV' },
+    pages: { ja: 'ページ数', en: 'Pages' },
+    price: { ja: '価格', en: 'Price' },
+    out: { ja: '配信日', en: 'Release' },
+    edJa: { ja: '日本語版', en: 'Japanese edition' },
+    edEn: { ja: '英語版', en: 'English edition' },
+    kindleOnly: { ja: 'Kindle だけで配信します（日本語版・英語版）。', en: 'Kindle only (Japanese and English editions).' },
+    v5date: { ja: '2026年10月10日', en: 'October 10, 2026' },
+    part1: { ja: '第1部　鉱物と結晶の少女たち', en: 'Part 1: The Girls of Minerals & Crystals' },
+    part1sub: { ja: '鉱物擬人化図鑑　vol. I〜IV', en: 'Minerals, personified. vol. I–IV' },
   };
 
   /* ---------- 図鑑のデータ（販路の URL が分かったら空欄を埋める） ---------- */
@@ -229,49 +215,37 @@ ul { padding: 0; list-style: none; }
     {
       n: 1, roman: 'I', pages: 14, yen: '¥300', usd: '$2.99',
       links: { booth: BOOTH + '8782794', kindleJa: 'https://www.amazon.co.jp/dp/B0HH9MWW29', kindleEn: 'https://www.amazon.com/dp/B0HHJYPC3Q', itch: 'https://mitori-mimicria.itch.io/mimicria-vol-1', gumroad: 'https://mimicria.gumroad.com/l/mimicria-vol-1' },
-      catch: { ja: '結晶のかたちは、七つしかない。', en: 'There are only seven crystal systems.', ko: '결정의 형태는 일곱 가지뿐이다.', 'zh-Hant': '結晶的形狀，只有七種。', 'zh-Hans': '结晶的形状，只有七种。' },
+      catch: { ja: '結晶のかたちは、七つしかない。', en: 'There are only seven crystal systems.' },
       desc: {
         ja: '鉱物9種。鉱物学の7つの結晶系を一巡し、対称性の高いものから順に並んでいます。',
-        en: 'Nine minerals covering all seven crystal systems, from the most symmetrical to the least.',
-        ko: '광물 9종. 광물학의 7개 결정계를 한 바퀴 돌며, 대칭성이 높은 것부터 차례로 늘어서 있습니다.',
-        'zh-Hant': '收錄9種礦物，走遍礦物學的7個晶系，依對稱性由高到低排列。',
-        'zh-Hans': '收录9种矿物，走遍矿物学的7个晶系，按对称性由高到低排列。'
+        en: 'Nine minerals covering all seven crystal systems, from the most symmetrical to the least.'
       }
     },
     {
       n: 2, roman: 'II', pages: 15, yen: '¥300', usd: '$2.99',
       links: { booth: BOOTH + '8808919', kindleJa: 'https://www.amazon.co.jp/dp/B0HHXWL3PL', kindleEn: 'https://www.amazon.com/dp/B0GY4PQRNR', itch: 'https://mitori-mimicria.itch.io/mimicria-vol-2', gumroad: 'https://mimicria.gumroad.com/l/mimicria-vol-2' },
-      catch: { ja: '最後の一種は、生き物だった。', en: 'The last of them was once alive.', ko: '마지막 한 종은 생물이었다.', 'zh-Hant': '最後一種，曾經是生物。', 'zh-Hans': '最后一种，曾经是生物。' },
+      catch: { ja: '最後の一種は、生き物だった。', en: 'The last of them was once alive.' },
       desc: {
         ja: '鉱物10種。化学組成で分けるシュツルンツ分類の10クラスを一巡し、組成の単純なものから順に並んでいます。',
-        en: 'Ten minerals covering all ten Nickel-Strunz classes, starting from the simplest compositions.',
-        ko: '광물 10종. 화학 조성으로 나누는 슈트룬츠 분류의 10개 클래스를 한 바퀴 돌며, 조성이 단순한 것부터 차례로 늘어서 있습니다.',
-        'zh-Hant': '收錄10種礦物，走遍依化學組成劃分的 Strunz 分類10個類別，從組成最單純的開始依序排列。',
-        'zh-Hans': '收录10种矿物，走遍按化学组成划分的 Strunz 分类10个类别，从组成最单纯的开始依次排列。'
+        en: 'Ten minerals covering all ten Nickel-Strunz classes, starting from the simplest compositions.'
       }
     },
     {
       n: 3, roman: 'III', pages: 14, yen: '¥300', usd: '$2.99',
       links: { booth: BOOTH + '8833456', kindleJa: 'https://www.amazon.co.jp/dp/B0HJLM1HRQ', kindleEn: 'https://www.amazon.com/dp/B0HJL3WV24', itch: 'https://mitori-mimicria.itch.io/mimicria-vol-3', gumroad: 'https://mimicria.gumroad.com/l/mimicria-vol-3' },
-      catch: { ja: '当てた光は、そのまま返ってこない。', en: 'The light you give is not the light you get back.', ko: '비춘 빛은 그대로 돌아오지 않는다.', 'zh-Hant': '照進去的光，不會原樣回來。', 'zh-Hans': '照进去的光，不会原样回来。' },
+      catch: { ja: '当てた光は、そのまま返ってこない。', en: 'The light you give is not the light you get back.' },
       desc: {
         ja: '鉱物9種。石で見られる9つの光の現象を一巡し、似た現象どうしを隣に並べています。',
-        en: 'Nine minerals covering nine optical effects seen in stones, with related effects placed side by side.',
-        ko: '광물 9종. 돌에서 볼 수 있는 9가지 빛의 현상을 한 바퀴 돌며, 비슷한 현상끼리 나란히 놓여 있습니다.',
-        'zh-Hant': '收錄9種礦物，走遍在石頭上看得到的9種光學現象，相近的現象排在一起。',
-        'zh-Hans': '收录9种矿物，走遍在石头上看得到的9种光学现象，相近的现象排在一起。'
+        en: 'Nine minerals covering nine optical effects seen in stones, with related effects placed side by side.'
       }
     },
     {
       n: 4, roman: 'IV', pages: 14, yen: '¥300', usd: '$2.99',
       links: { booth: BOOTH + '8906001', kindleJa: 'https://www.amazon.co.jp/dp/B0HL5Y2TP8', kindleEn: 'https://www.amazon.com/dp/B0HL5X3KGD', itch: 'https://mitori-mimicria.itch.io/mimicria-vol-4', gumroad: 'https://mimicria.gumroad.com/l/mimicria-vol-4' },
-      catch: { ja: '石にも、生まれた場所がある。', en: 'Every stone has a place it came from.', ko: '돌에도 태어난 곳이 있다.', 'zh-Hant': '石頭也有出生的地方。', 'zh-Hans': '石头也有出生的地方。' },
+      catch: { ja: '石にも、生まれた場所がある。', en: 'Every stone has a place it came from.' },
       desc: {
         ja: '鉱物9種。石ができる9つの場所を一巡し、地球の深いところから地表へ、そして地球の外へと順に並んでいます。',
-        en: 'Nine minerals covering nine places where stones form, from deep inside the Earth to the surface, and then beyond it.',
-        ko: '광물 9종. 돌이 만들어지는 9곳을 한 바퀴 돌며, 지구 깊은 곳에서 지표로, 그리고 지구 밖으로 차례로 늘어서 있습니다.',
-        'zh-Hant': '收錄9種礦物，走遍石頭形成的9個地方，從地球深處到地表，再到地球之外依序排列。',
-        'zh-Hans': '收录9种矿物，走遍石头形成的9个地方，从地球深处到地表，再到地球之外依次排列。'
+        en: 'Nine minerals covering nine places where stones form, from deep inside the Earth to the surface, and then beyond it.'
       }
     }
   ];
@@ -280,14 +254,11 @@ ul { padding: 0; list-style: none; }
     release: '2026-10-10T00:00:00+09:00',
     links: { kindleJa: '', kindleEn: '' },
     title: { ja: '雲と大気の少女たち', other: 'The Girls of Clouds & Atmosphere' },
-    genre: { ja: '気象擬人化図鑑', en: 'Weather, personified', ko: '기상 의인화 도감', 'zh-Hant': '氣象擬人化圖鑑', 'zh-Hans': '气象拟人化图鉴' },
-    catch: { ja: '形を持たないものにも、名前がある。', en: 'Even what has no shape has a name.', ko: '형태가 없는 것에도 이름이 있다.', 'zh-Hant': '沒有形狀的東西，也有名字。', 'zh-Hans': '没有形状的东西，也有名字。' },
+    genre: { ja: '気象擬人化図鑑', en: 'Weather, personified' },
+    catch: { ja: '形を持たないものにも、名前がある。', en: 'Even what has no shape has a name.' },
     desc: {
       ja: '雲10種。国際分類の十種雲形を一巡し、高い雲から低い雲へ順に並んでいます。最後の2つは、下から湧き上がる積雲と積乱雲です。',
-      en: 'Ten clouds covering all ten cloud genera, from the highest to the lowest. The last two, cumulus and cumulonimbus, build up from below.',
-      ko: '구름 10종. 국제 분류의 십종운형을 한 바퀴 돌며, 높은 구름부터 낮은 구름 순으로 늘어서 있습니다. 마지막 두 가지는 아래에서 솟아오르는 적운과 적란운입니다.',
-      'zh-Hant': '收錄10種雲，走遍國際分類的十種雲屬，由高到低依序排列。最後兩種是由下往上發展的積雲與積雨雲。',
-      'zh-Hans': '收录10种云，走遍国际分类的十种云属，由高到低依次排列。最后两种是由下往上发展的积云与积雨云。'
+      en: 'Ten clouds covering all ten cloud genera, from the highest to the lowest. The last two, cumulus and cumulonimbus, build up from below.'
     }
   };
   /* ---------- 組み立て ---------- */
