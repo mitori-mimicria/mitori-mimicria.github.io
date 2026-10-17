@@ -12,7 +12,7 @@ if (location.hash === '#milleaf') location.replace('milleaf-store/' + location.s
 <meta property="og:title" content="Mimicria">
 <meta property="og:description" content="An illustrated field guide of things that pretend to be people. By Mimicria — Mitori.">
 <meta property="og:type" content="website">
-<meta property="og:image" content="https://mitori-mimicria.github.io/img/vol5_ja_960.jpg">
+<meta property="og:image" content="https://mitori-mimicria.github.io/img/vol6_ja_960.jpg">
 <meta name="twitter:card" content="summary_large_image">
 <link rel="icon" href="img/mimicria_icon_64.png">
 <link rel="apple-touch-icon" href="img/mimicria_icon_180.png">
@@ -98,7 +98,7 @@ ul { padding: 0; list-style: none; }
 .stores .ed { color: var(--mute); font-size: 12px; margin-left: 4px; }
 .soon { margin-top: 20px; padding-left: 12px; border-left: 2px solid var(--gold); font-size: 14px; }
 
-/* ---------- 近刊（予約の受付中だけ。配信日を過ぎたら「新刊」へ移す） ---------- */
+/* ---------- 近刊（予約の受付中だけ。配信日を過ぎると「新刊」へ移る） ---------- */
 .next {
   display: grid; grid-template-columns: 160px minmax(0, 1fr); grid-template-areas: "cover head" "cover body";
   gap: 0 clamp(20px, 3vw, 40px); align-items: start; padding-top: 48px; padding-bottom: 48px; border-bottom: 1px solid var(--line);
@@ -172,6 +172,7 @@ ul { padding: 0; list-style: none; }
     </section>
     <section class="wrap next" id="next" hidden></section>
     <section class="wrap latest" id="latest"></section>
+    <section class="wrap part" id="part2" hidden></section>
     <section class="wrap part" id="part1"></section>
   </div>
 
@@ -225,10 +226,13 @@ ul { padding: 0; list-style: none; }
     edEn: { ja: '英語版', en: 'English edition' },
     kindleOnly: { ja: 'Kindleだけで配信します（日本語版・英語版）。', en: 'Kindle only (Japanese and English editions).' },
     v5date: { ja: '2026年10月10日', en: 'October 10, 2026' },
+    v6date: { ja: '2026年10月21日', en: 'October 21, 2026' },
     v6out: { ja: '2026年10月21日配信', en: 'Coming October 21, 2026' },
     preorder: { ja: 'Kindleで予約を受け付けています（日本語版・英語版）。', en: 'Pre-orders are open on Kindle (Japanese and English editions).' },
     part1: { ja: '第1部　鉱物と結晶の少女たち', en: 'Part 1: The Girls of Minerals & Crystals' },
     part1sub: { ja: '鉱物擬人化図鑑　vol. I〜IV', en: 'Minerals, personified. vol. I–IV' },
+    part2: { ja: '第2部　雲と大気の少女たち', en: 'Part 2: The Girls of Clouds & Atmosphere' },
+    part2sub: { ja: '気象擬人化図鑑　vol. V〜VIII', en: 'Weather, personified. vol. V–VIII' },
   };
 
   /* ---------- 図鑑のデータ（販路の URL が分かったら空欄を埋める） ---------- */
@@ -271,31 +275,35 @@ ul { padding: 0; list-style: none; }
       }
     }
   ];
-  var LATEST = {
-    n: 5, roman: 'V', pages: 29, yen: '¥400', usd: '$3.99',
-    release: '2026-10-10T00:00:00+09:00',
-    links: { kindleJa: 'https://www.amazon.co.jp/dp/B0HLX4YNCL', kindleEn: 'https://www.amazon.com/dp/B0HLX7123N' },  /* 10-10 配信（Mimicria の 90_status の ASIN・公開中のページで確かめた） */
-    title: { ja: '雲と大気の少女たち', other: 'The Girls of Clouds & Atmosphere' },
-    genre: { ja: '気象擬人化図鑑', en: 'Weather, personified' },
-    catch: { ja: '形を持たないものにも、名前がある。', en: 'Even what has no shape has a name.' },
-    desc: {
-      ja: '雲10種。国際分類の十種雲形を一巡し、高い雲から低い雲へ順に並んでいます。最後の2つは、下から湧き上がる積雲と積乱雲です。',
-      en: 'Ten clouds covering all ten cloud genera, from the highest to the lowest. The last two, cumulus and cumulonimbus, build up from below.'
+  /* 第2部。配信日（release）を過ぎた巻の最後を新刊に、それより前の巻を第2部の棚に出す。
+     配信日の前の巻は近刊（予約の受付中）に出す。vol. VI は 10/21 0:00 に近刊から新刊へ移り、vol. V は棚へ（10-17 本部 G056） */
+  var PART2 = [
+    {
+      n: 5, roman: 'V', pages: 29, yen: '¥400', usd: '$3.99',
+      release: '2026-10-10T00:00:00+09:00', date: 'v5date',
+      links: { kindleJa: 'https://www.amazon.co.jp/dp/B0HLX4YNCL', kindleEn: 'https://www.amazon.com/dp/B0HLX7123N' },  /* 10-10 配信（Mimicria の 90_status の ASIN・公開中のページで確かめた） */
+      title: { ja: '雲と大気の少女たち', other: 'The Girls of Clouds & Atmosphere' },
+      genre: { ja: '気象擬人化図鑑', en: 'Weather, personified' },
+      catch: { ja: '形を持たないものにも、名前がある。', en: 'Even what has no shape has a name.' },
+      desc: {
+        ja: '雲10種。国際分類の十種雲形を一巡し、高い雲から低い雲へ順に並んでいます。最後の2つは、下から湧き上がる積雲と積乱雲です。',
+        en: 'Ten clouds covering all ten cloud genera, from the highest to the lowest. The last two, cumulus and cumulonimbus, build up from below.'
+      }
+    },
+    {
+      n: 6, roman: 'VI', pages: 29, yen: '¥400', usd: '$3.99',
+      release: '2026-10-21T00:00:00+09:00', date: 'v6date', soon: 'v6out',
+      links: { kindleJa: 'https://www.amazon.co.jp/dp/B0GZGL7YLY', kindleEn: 'https://www.amazon.com/dp/B0GX2WNWK4' },  /* 10-17 予約の受付が始まった（Mimicria の 90_status の ASIN・10-17 は日英とも予約注文で配信日 10/21） */
+      title: { ja: '雲と大気の少女たち', other: 'The Girls of Clouds & Atmosphere' },
+      genre: { ja: '気象擬人化図鑑', en: 'Weather, personified' },
+      catch: { ja: '雪は、育った温度を覚えている。', en: 'Snow remembers the cold it grew in.' },
+      desc: {
+        ja: '雪と氷10種。1951年の「固体降水の国際分類」を一巡します。雲の中で育つ結晶が温度の順に並び、落ちながら姿を変えるものが続きます。最後は、積乱雲の中で育つ雹です。',
+        en: 'Ten kinds of snow and ice covering the 1951 International Classification for Snow. Crystals that grow inside clouds come first, in order of temperature, then the ones that change shape as they fall. The last is hail, grown inside a cumulonimbus.'
+      }
     }
-  };
-  /* 近刊（予約の受付中）。配信日を過ぎると出さない → LATEST に移し、vol. V は第2部の棚へ */
-  var NEXT = {
-    n: 6, roman: 'VI', pages: 29, yen: '¥400', usd: '$3.99',
-    release: '2026-10-21T00:00:00+09:00',
-    links: { kindleJa: 'https://www.amazon.co.jp/dp/B0GZGL7YLY', kindleEn: 'https://www.amazon.com/dp/B0GX2WNWK4' },  /* 10-17 予約の受付が始まった（Mimicria の 90_status の ASIN） */
-    title: { ja: '雲と大気の少女たち', other: 'The Girls of Clouds & Atmosphere' },
-    genre: { ja: '気象擬人化図鑑', en: 'Weather, personified' },
-    catch: { ja: '雪は、育った温度を覚えている。', en: 'Snow remembers the cold it grew in.' },
-    desc: {
-      ja: '雪と氷10種。1951年の「固体降水の国際分類」を一巡します。雲の中で育つ結晶が温度の順に並び、落ちながら姿を変えるものが続きます。最後は、積乱雲の中で育つ雹です。',
-      en: 'Ten kinds of snow and ice covering the 1951 International Classification for Snow. Crystals that grow inside clouds come first, in order of temperature, then the ones that change shape as they fall. The last is hail, grown inside a cumulonimbus.'
-    }
-  };
+  ];
+  function isOut(b) { return Date.now() >= Date.parse(b.release); }
   /* ---------- 組み立て ---------- */
   var lang = 'ja';
   function t(key) { var v = T[key]; return v ? (v[lang] || v.en) : key; }
@@ -343,7 +351,7 @@ ul { padding: 0; list-style: none; }
   function tag(k) { return function (s) { return [s[0], s[1], t(k)]; }; }
 
   function renderLatest() {
-    var b = LATEST, root = document.getElementById('latest');
+    var out = PART2.filter(isOut), b = out[out.length - 1], root = document.getElementById('latest');
     root.textContent = '';
     root.appendChild(cover(b, true));
     var box = el('div');
@@ -354,23 +362,23 @@ ul { padding: 0; list-style: none; }
     box.appendChild(el('p', 'genre', pick(b.genre)));
     box.appendChild(el('p', 'catch', pick(b.catch)));
     box.appendChild(el('p', 'desc', pick(b.desc)));
-    box.appendChild(facts(b, [[t('out'), t('v5date')]]));
+    box.appendChild(facts(b, [[t('out'), t(b.date)]]));
     if (b.links.kindleJa || b.links.kindleEn) box.appendChild(stores(b));
     else box.appendChild(el('p', 'soon', t('kindleOnly')));
     root.appendChild(box);
   }
 
   function renderNext() {
-    var b = NEXT, root = document.getElementById('next');
+    var b = PART2.filter(function (x) { return !isOut(x); })[0], root = document.getElementById('next');
     root.textContent = '';
-    root.hidden = Date.now() >= Date.parse(b.release);
-    if (root.hidden) return;
+    root.hidden = !b;
+    if (!b) return;
     var img = cover(b, true);
     img.sizes = '(max-width: 560px) 104px, 160px';
     root.appendChild(img);
     var head = el('div', 'head'), body = el('div', 'body');
     head.appendChild(el('p', 'vol', 'MIMICRIA vol. ' + b.roman));
-    head.appendChild(el('h2', null, t('v6out')));
+    head.appendChild(el('h2', null, t(b.soon)));
     body.appendChild(el('p', 'catch', pick(b.catch)));
     body.appendChild(el('p', 'desc', pick(b.desc)));
     body.appendChild(facts(b));
@@ -380,15 +388,18 @@ ul { padding: 0; list-style: none; }
     root.appendChild(body);
   }
 
-  function renderPart1() {
-    var root = document.getElementById('part1');
+  /* 部の棚（id は part1・part2。見出しは T の同じ名前と「sub」）。並べる巻がなければ出さない */
+  function renderShelf(id, books) {
+    var root = document.getElementById(id);
     root.textContent = '';
+    root.hidden = !books.length;
+    if (!books.length) return;
     var head = el('div', 'part-head');
-    head.appendChild(el('h2', null, t('part1')));
-    head.appendChild(el('p', null, t('part1sub')));
+    head.appendChild(el('h2', null, t(id)));
+    head.appendChild(el('p', null, t(id + 'sub')));
     root.appendChild(head);
     var shelf = el('div', 'shelf');
-    BOOKS.forEach(function (b) {
+    books.forEach(function (b) {
       var art = el('article', 'book');
       art.appendChild(cover(b, false));
       art.appendChild(el('span', 'vol', 'vol. ' + b.roman));
@@ -409,7 +420,8 @@ ul { padding: 0; list-style: none; }
     document.getElementById('lang-cur').textContent = LANGS.filter(function (x) { return x.id === l; })[0].label;
     renderNext();
     renderLatest();
-    renderPart1();
+    renderShelf('part2', PART2.filter(isOut).slice(0, -1));
+    renderShelf('part1', BOOKS);
     buildMenu();
   }
 
