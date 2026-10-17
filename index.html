@@ -98,6 +98,22 @@ ul { padding: 0; list-style: none; }
 .stores .ed { color: var(--mute); font-size: 12px; margin-left: 4px; }
 .soon { margin-top: 20px; padding-left: 12px; border-left: 2px solid var(--gold); font-size: 14px; }
 
+/* ---------- 近刊（予約の受付中だけ。配信日を過ぎたら「新刊」へ移す） ---------- */
+.next {
+  display: grid; grid-template-columns: 160px minmax(0, 1fr); grid-template-areas: "cover head" "cover body";
+  gap: 0 clamp(20px, 3vw, 40px); align-items: start; padding-top: 48px; padding-bottom: 48px; border-bottom: 1px solid var(--line);
+}
+.next[hidden] { display: none; }
+.next .cover { grid-area: cover; box-shadow: 0 16px 32px rgba(0, 0, 0, 0.5); }
+.next .head { grid-area: head; }
+.next .body { grid-area: body; }
+.next h2 { margin-top: 12px; font: 700 clamp(20px, 2.4vw, 26px)/1.4 var(--serif); letter-spacing: 0.04em; }
+.next .catch { word-break: auto-phrase; margin-top: 16px; font-size: 18px; }
+.next .desc { margin-top: 6px; max-width: 34em; font-size: 14px; color: var(--mute); text-wrap: pretty; }
+.next .facts { margin-top: 16px; font-size: 13px; }
+.next .stores { margin-top: 12px; }
+.next .soon { margin-top: 14px; }
+
 /* ---------- 既刊 ---------- */
 .part { padding-top: 64px; padding-bottom: 96px; border-top: 1px solid var(--line); }
 .part-head h2 { font: 700 clamp(22px, 2.6vw, 28px)/1.4 var(--serif); letter-spacing: 0.04em; }
@@ -125,6 +141,9 @@ ul { padding: 0; list-style: none; }
   .spec div { grid-template-columns: 6.5em 1fr; }
   .book .stores { gap: 0; }
   .book .stores li { padding: 6px 0; }
+  .next { grid-template-columns: 104px minmax(0, 1fr); grid-template-areas: "cover head" "body body"; column-gap: 16px; padding-top: 36px; padding-bottom: 36px; }
+  .next .head { align-self: end; }
+  .next .catch { margin-top: 20px; font-size: 16px; }
 }
 </style>
 </head>
@@ -151,6 +170,7 @@ ul { padding: 0; list-style: none; }
       <p data-t="intro">「人のふりをしているもの」を観察して記録する、デジタルのアート図鑑です。</p>
       <p class="ai" data-t="ai">生成AIを利用し、選定と加筆・修正を行って制作しています。</p>
     </section>
+    <section class="wrap next" id="next" hidden></section>
     <section class="wrap latest" id="latest"></section>
     <section class="wrap part" id="part1"></section>
   </div>
@@ -205,6 +225,8 @@ ul { padding: 0; list-style: none; }
     edEn: { ja: '英語版', en: 'English edition' },
     kindleOnly: { ja: 'Kindleだけで配信します（日本語版・英語版）。', en: 'Kindle only (Japanese and English editions).' },
     v5date: { ja: '2026年10月10日', en: 'October 10, 2026' },
+    v6out: { ja: '2026年10月21日配信', en: 'Coming October 21, 2026' },
+    preorder: { ja: 'Kindleで予約を受け付けています（日本語版・英語版）。', en: 'Pre-orders are open on Kindle (Japanese and English editions).' },
     part1: { ja: '第1部　鉱物と結晶の少女たち', en: 'Part 1: The Girls of Minerals & Crystals' },
     part1sub: { ja: '鉱物擬人化図鑑　vol. I〜IV', en: 'Minerals, personified. vol. I–IV' },
   };
@@ -259,6 +281,19 @@ ul { padding: 0; list-style: none; }
     desc: {
       ja: '雲10種。国際分類の十種雲形を一巡し、高い雲から低い雲へ順に並んでいます。最後の2つは、下から湧き上がる積雲と積乱雲です。',
       en: 'Ten clouds covering all ten cloud genera, from the highest to the lowest. The last two, cumulus and cumulonimbus, build up from below.'
+    }
+  };
+  /* 近刊（予約の受付中）。配信日を過ぎると出さない → LATEST に移し、vol. V は第2部の棚へ */
+  var NEXT = {
+    n: 6, roman: 'VI', pages: 29, yen: '¥400', usd: '$3.99',
+    release: '2026-10-21T00:00:00+09:00',
+    links: { kindleJa: 'https://www.amazon.co.jp/dp/B0GZGL7YLY', kindleEn: 'https://www.amazon.com/dp/B0GX2WNWK4' },  /* 10-17 予約の受付が始まった（Mimicria の 90_status の ASIN） */
+    title: { ja: '雲と大気の少女たち', other: 'The Girls of Clouds & Atmosphere' },
+    genre: { ja: '気象擬人化図鑑', en: 'Weather, personified' },
+    catch: { ja: '雪は、育った温度を覚えている。', en: 'Snow remembers the cold it grew in.' },
+    desc: {
+      ja: '雪と氷10種。1951年の「固体降水の国際分類」を一巡します。雲の中で育つ結晶が温度の順に並び、落ちながら姿を変えるものが続きます。最後は、積乱雲の中で育つ雹です。',
+      en: 'Ten kinds of snow and ice covering the 1951 International Classification for Snow. Crystals that grow inside clouds come first, in order of temperature, then the ones that change shape as they fall. The last is hail, grown inside a cumulonimbus.'
     }
   };
   /* ---------- 組み立て ---------- */
@@ -325,6 +360,26 @@ ul { padding: 0; list-style: none; }
     root.appendChild(box);
   }
 
+  function renderNext() {
+    var b = NEXT, root = document.getElementById('next');
+    root.textContent = '';
+    root.hidden = Date.now() >= Date.parse(b.release);
+    if (root.hidden) return;
+    var img = cover(b, true);
+    img.sizes = '(max-width: 560px) 104px, 160px';
+    root.appendChild(img);
+    var head = el('div', 'head'), body = el('div', 'body');
+    head.appendChild(el('p', 'vol', 'MIMICRIA vol. ' + b.roman));
+    head.appendChild(el('h2', null, t('v6out')));
+    body.appendChild(el('p', 'catch', pick(b.catch)));
+    body.appendChild(el('p', 'desc', pick(b.desc)));
+    body.appendChild(facts(b));
+    body.appendChild(stores(b));
+    body.appendChild(el('p', 'soon', t('preorder')));
+    root.appendChild(head);
+    root.appendChild(body);
+  }
+
   function renderPart1() {
     var root = document.getElementById('part1');
     root.textContent = '';
@@ -352,6 +407,7 @@ ul { padding: 0; list-style: none; }
     document.querySelectorAll('[data-t]').forEach(function (e) { e.textContent = t(e.getAttribute('data-t')); });
     document.querySelectorAll('[data-alt]').forEach(function (e) { e.alt = t(e.getAttribute('data-alt')); });
     document.getElementById('lang-cur').textContent = LANGS.filter(function (x) { return x.id === l; })[0].label;
+    renderNext();
     renderLatest();
     renderPart1();
     buildMenu();
