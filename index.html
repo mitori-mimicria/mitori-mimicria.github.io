@@ -12,7 +12,7 @@ if (location.hash === '#milleaf') location.replace('milleaf-store/' + location.s
 <meta property="og:title" content="Mimicria">
 <meta property="og:description" content="An illustrated field guide of things that pretend to be people. By Mimicria — Mitori.">
 <meta property="og:type" content="website">
-<meta property="og:image" content="https://mitori-mimicria.github.io/img/vol6_ja_960.jpg">
+<meta property="og:image" content="https://mitori-mimicria.github.io/img/vol7_ja_960.jpg">
 <meta name="twitter:card" content="summary_large_image">
 <link rel="icon" href="img/mimicria_icon_64.png">
 <link rel="apple-touch-icon" href="img/mimicria_icon_180.png">
@@ -228,6 +228,8 @@ ul { padding: 0; list-style: none; }
     v5date: { ja: '2026年10月10日', en: 'October 10, 2026' },
     v6date: { ja: '2026年10月21日', en: 'October 21, 2026' },
     v6out: { ja: '2026年10月21日配信', en: 'Coming October 21, 2026' },
+    v7date: { ja: '2026年11月1日', en: 'November 1, 2026' },
+    v7out: { ja: '2026年11月1日配信', en: 'Coming November 1, 2026' },
     preorder: { ja: 'Kindleで予約を受け付けています（日本語版・英語版）。', en: 'Pre-orders are open on Kindle (Japanese and English editions).' },
     part1: { ja: '第1部　鉱物と結晶の少女たち', en: 'Part 1: The Girls of Minerals & Crystals' },
     part1sub: { ja: '鉱物擬人化図鑑　vol. I〜IV', en: 'Minerals, personified. vol. I–IV' },
@@ -276,7 +278,8 @@ ul { padding: 0; list-style: none; }
     }
   ];
   /* 第2部。配信日（release）を過ぎた巻の最後を新刊に、それより前の巻を第2部の棚に出す。
-     配信日の前の巻は近刊（予約の受付中）に出す。vol. VI は 10/21 0:00 に近刊から新刊へ移り、vol. V は棚へ（10-17 本部 G056） */
+     配信日の前の巻は近刊に出す。vol. VI は 10/21 0:00 に近刊から新刊へ移り、vol. V は棚へ（10-17 本部 G056）。
+     vol. VII は 11/1 0:00 に新刊へ、vol. VI は棚へ（10-24 本部 G061。予約のページが無いあいだは「Kindleだけで配信します」） */
   var PART2 = [
     {
       n: 5, roman: 'V', pages: 29, yen: '¥400', usd: '$3.99',
@@ -300,6 +303,18 @@ ul { padding: 0; list-style: none; }
       desc: {
         ja: '雪と氷10種。1951年の「固体降水の国際分類」を一巡します。雲の中で育つ結晶が温度の順に並び、落ちながら姿を変えるものが続きます。',
         en: 'Ten kinds of snow and ice covering the 1951 International Classification for Snow. Crystals that grow inside clouds come first, in order of temperature, then the ones that change shape as they fall.'
+      }
+    },
+    {
+      n: 7, roman: 'VII', pages: 27, yen: '¥400', usd: '$3.99',
+      release: '2026-11-01T00:00:00+09:00', date: 'v7date', soon: 'v7out',
+      links: {},  /* 予約のページができたら kindleJa・kindleEn を入れる（10-24 時点は KDP の下書き・Mimicria の 90_status） */
+      title: { ja: '雲と大気の少女たち', other: 'The Girls of Clouds & Atmosphere' },
+      genre: { ja: '気象擬人化図鑑', en: 'Weather, personified' },
+      catch: { ja: '雲より上でも、空は光っている。', en: 'Above the clouds, the sky still glows.' },
+      desc: {
+        ja: '高層大気の光9種。成層圏の真珠母雲から大気の外の黄道光まで、おおよそ高さの順に並んでいます。',
+        en: 'Nine lights of the upper sky, from nacreous clouds in the stratosphere to the zodiacal light beyond the air, roughly in order of height.'
       }
     }
   ];
@@ -382,8 +397,13 @@ ul { padding: 0; list-style: none; }
     body.appendChild(el('p', 'catch', pick(b.catch)));
     body.appendChild(el('p', 'desc', pick(b.desc)));
     body.appendChild(facts(b));
-    body.appendChild(stores(b));
-    body.appendChild(el('p', 'soon', t('preorder')));
+    /* 予約のページがまだ無い巻は、販路の一覧の代わりに「Kindleだけで配信します」を出す（10-24 本部 G061） */
+    if (b.links.kindleJa || b.links.kindleEn) {
+      body.appendChild(stores(b));
+      body.appendChild(el('p', 'soon', t('preorder')));
+    } else {
+      body.appendChild(el('p', 'soon', t('kindleOnly')));
+    }
     root.appendChild(head);
     root.appendChild(body);
   }
