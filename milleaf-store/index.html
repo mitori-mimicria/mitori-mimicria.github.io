@@ -96,6 +96,9 @@ h1, h2, p, dl, dd { margin: 0; }
 .btn:hover { background: var(--accent-dark); }
 .soon { display: inline-block; margin-top: 28px; padding: 12px 0; font-weight: 700; }
 .manual { display: inline-block; margin: 28px 0 0 18px; font-weight: 700; }
+/* 売り場のボタンとリンクの並び（10-24 追加テンプレート2を足して折り返すようになったので、行の頭がずれないように） */
+.actions { display: flex; flex-wrap: wrap; align-items: center; gap: 14px 22px; margin-top: 28px; }
+.actions .btn, .actions .soon, .actions .manual { margin: 0; }
 .hero-fig { margin: 0; }
 .hero-fig figcaption { margin-top: 8px; font-size: 13px; color: var(--mute); }
 
@@ -150,7 +153,7 @@ h1, h2, p, dl, dd { margin: 0; }
         <div><dt data-t="env.k">動作環境</dt><dd>Windows 10 / 11（64bit）</dd></div>
         <div><dt data-t="lang.k">表示言語</dt><dd class="langs"><span lang="ja">日本語</span> / <span lang="en">English</span> / <span lang="ko">한국어</span> / <span lang="zh-Hant">繁體中文</span> / <span lang="zh-Hans">简体中文</span></dd></div>
       </dl>
-      <a class="btn" id="buy" href="#" data-t="btn" hidden>BOOTHで見る</a><span class="soon" id="soon" data-t="soon">BOOTHで10月10日に公開します。</span><a class="manual" id="addons" href="#" data-t="addons" hidden>追加テンプレート</a><a class="manual" id="manual" href="https://mitori-mimicria.github.io/milleaf/" data-t="manual">使い方</a>
+      <div class="actions"><a class="btn" id="buy" href="#" data-t="btn" hidden>BOOTHで見る</a><span class="soon" id="soon" data-t="soon">BOOTHで10月10日に公開します。</span><a class="manual" id="addons" href="#" data-t="addons" hidden>追加テンプレート</a><a class="manual" id="addons2" href="#" data-t="addons2" hidden>追加テンプレート2</a><a class="manual" id="manual" href="https://mitori-mimicria.github.io/milleaf/" data-t="manual">使い方</a></div>
     </div>
     <figure class="hero-fig">
       <img src="../img/milleaf_visual_book.jpg" width="1120" height="765" alt="" data-alt="heroAlt">
@@ -207,6 +210,7 @@ h1, h2, p, dl, dd { margin: 0; }
   var STORE = {
     item: 'https://mimicria.booth.pm/items/8957446',   /* BOOTH の商品ページ（10-08 オーナー: Milleaf 専用のショップ mimicria） */
     addons: 'https://mimicria.booth.pm/items/8957481', /* 追加テンプレートの商品ページ。空なら出さない */
+    addons2: 'https://mimicria.booth.pm/items/8965894', /* 追加テンプレート2（10-24 公開・本部 G070 idea-store-addon2「やりたい」）。空なら出さない */
     opensAt: '2026-10-10T06:43:00+09:00',             /* これより前は「公開します」の 1 行だけ。10-10 06:43 にオーナーが 2 ページを公開したので 10:00 から早めた */
     launchEnd: '2026-10-25T23:59:59+09:00',
     manual: 'https://mitori-mimicria.github.io/milleaf/'
@@ -273,6 +277,7 @@ h1, h2, p, dl, dd { margin: 0; }
     btn: { ja: 'BOOTHで見る', en: 'View on BOOTH', ko: 'BOOTH에서 보기', 'zh-Hant': '在 BOOTH 查看', 'zh-Hans': '在 BOOTH 查看' },
     soon: { ja: 'BOOTHで10月10日に公開します。', en: 'Coming to BOOTH on October 10.', ko: '10월 10일 BOOTH에서 공개합니다.', 'zh-Hant': '將於10月10日在 BOOTH 上架。', 'zh-Hans': '将于10月10日在 BOOTH 上架。' },
     addons: { ja: '追加テンプレート', en: 'Add-on templates', ko: '추가 템플릿', 'zh-Hant': '追加範本', 'zh-Hans': '追加模板' },  /* 10-08 オーナー: 商品名から「公式」を外した */
+    addons2: { ja: '追加テンプレート2', en: 'Add-on templates 2', ko: '추가 템플릿 2', 'zh-Hant': '追加範本2', 'zh-Hans': '追加模板2' },  /* 10-24 BOOTH の商品名「Milleaf追加テンプレート2」に合わせた */
     manual: { ja: '使い方', en: 'User guide', ko: '사용 방법', 'zh-Hant': '使用說明', 'zh-Hans': '使用说明' },
     heroCap: { ja: '見本の本「STUDIO DAYS」と、もとのスクリーンショット', en: 'The sample book “STUDIO DAYS” and the screenshots it was made from', ko: '견본 책 「STUDIO DAYS」와 원본 스크린샷', 'zh-Hant': '範例書《STUDIO DAYS》與原本的截圖', 'zh-Hans': '示例书《STUDIO DAYS》与原始截图' },
     heroAlt: { ja: 'スクリーンショットの一覧と、そこから作った本の表紙と見開き', en: 'A sheet of screenshots, and the cover and a spread of the book made from them', ko: '스크린샷 목록과 그것으로 만든 책의 표지와 펼침면', 'zh-Hant': '截圖一覽，以及用它們做成的書的封面與跨頁', 'zh-Hans': '截图一览，以及用它们做成的书的封面与跨页' },
@@ -371,6 +376,9 @@ h1, h2, p, dl, dd { margin: 0; }
     var ad = document.getElementById('addons');
     ad.hidden = !(isOpen && STORE.addons);
     if (STORE.addons) ad.href = STORE.addons;
+    var ad2 = document.getElementById('addons2');
+    ad2.hidden = !(isOpen && STORE.addons2);
+    if (STORE.addons2) ad2.href = STORE.addons2;
     document.getElementById('manual').href = STORE.manual + '?lang=' + lang;
     document.getElementById('feats-note').hidden = lang === 'ja';
   }
