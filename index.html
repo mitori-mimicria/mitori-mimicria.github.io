@@ -12,7 +12,7 @@ if (location.hash === '#milleaf') location.replace('milleaf-store/' + location.s
 <meta property="og:title" content="Mimicria">
 <meta property="og:description" content="An illustrated field guide of things that pretend to be people. By Mimicria — Mitori.">
 <meta property="og:type" content="website">
-<meta property="og:image" content="https://mitori-mimicria.github.io/img/vol7_ja_960.jpg">
+<meta property="og:image" content="https://mitori-mimicria.github.io/img/vol8_ja_960.jpg">
 <meta name="twitter:card" content="summary_large_image">
 <link rel="icon" href="img/mimicria_icon_64.png">
 <link rel="apple-touch-icon" href="img/mimicria_icon_180.png">
@@ -230,6 +230,9 @@ ul { padding: 0; list-style: none; }
     v6out: { ja: '2026年10月21日配信', en: 'Coming October 21, 2026' },
     v7date: { ja: '2026年11月1日', en: 'November 1, 2026' },
     v7out: { ja: '2026年11月1日配信', en: 'Coming November 1, 2026' },
+    v8date: { ja: '2026年11月11日', en: 'November 11, 2026' },
+    v8out: { ja: '2026年11月11日配信', en: 'Coming November 11, 2026' },
+    v7free: { ja: '11月14日17時から11月16日17時まで（日本時間）、Kindleで無料です（日本語版・英語版）。', en: 'Free on Kindle on November 14 and 15 (Pacific Time), Japanese and English editions.' },  /* 11-04 オーナー q-site-v8-1104「A」 */
     preorder: { ja: 'Kindleで予約を受け付けています（日本語版・英語版）。', en: 'Pre-orders are open on Kindle (Japanese and English editions).' },
     part1: { ja: '第1部　鉱物と結晶の少女たち', en: 'Part 1: The Girls of Minerals & Crystals' },
     part1sub: { ja: '鉱物擬人化図鑑　vol. I〜IV', en: 'Minerals, personified. vol. I–IV' },
@@ -279,7 +282,9 @@ ul { padding: 0; list-style: none; }
   ];
   /* 第2部。配信日（release）を過ぎた巻の最後を新刊に、それより前の巻を第2部の棚に出す。
      配信日の前の巻は近刊に出す。vol. VI は 10/21 0:00 に近刊から新刊へ移り、vol. V は棚へ（10-17 本部 G056）。
-     vol. VII は 11/1 0:00 に新刊へ、vol. VI は棚へ（10-24 本部 G061。予約のページは 10-30 から・本部 G082） */
+     vol. VII は 11/1 0:00 に新刊へ、vol. VI は棚へ（10-24 本部 G061。予約のページは 10-30 から・本部 G082）。
+     vol. VIII は 11/11 0:00 に新刊へ、vol. VII は棚へ（11-04 本部 G091・オーナー q-site-v8-1104「A」）。
+     free（from〜to のあいだだけ）は Kindle の無料キャンペーンの 1 行。新刊・近刊・棚のどこに出ていても出す */
   var PART2 = [
     {
       n: 5, roman: 'V', pages: 29, yen: '¥400', usd: '$3.99',
@@ -309,6 +314,7 @@ ul { padding: 0; list-style: none; }
       n: 7, roman: 'VII', pages: 27, yen: '¥400', usd: '$3.99',
       release: '2026-11-01T00:00:00+09:00', date: 'v7date', soon: 'v7out',
       links: { kindleJa: 'https://www.amazon.co.jp/dp/B0HP7G9N3P', kindleEn: 'https://www.amazon.com/dp/B0HP7L1KZS' },  /* 10-30 予約の受付が始まった（Mimicria の 90_status の ASIN・10-30 は日英とも予約注文で配信日 11/1・Amazon のページで確かめた） */
+      free: { from: '2026-11-14T17:00:00+09:00', to: '2026-11-16T17:00:00+09:00', text: 'v7free' },  /* KDP の無料キャンペーン 11/14〜11/15（太平洋時間）・11/3 に Mimicria が設定 */
       title: { ja: '雲と大気の少女たち', other: 'The Girls of Clouds & Atmosphere' },
       genre: { ja: '気象擬人化図鑑', en: 'Weather, personified' },
       catch: { ja: '空の頂は、沈んだ太陽をまだ見ている。', en: 'The top of the sky still sees the sun that has set.' },  /* 10-24 オーナー q-site-v7-catch3 v7p-01（poetic-catch-jp） */
@@ -316,9 +322,26 @@ ul { padding: 0; list-style: none; }
         ja: '雲より高い空で起こる発光現象9種。現象が起こるおおよその高度順に掲載。',  /* 10-24 オーナー q-site-v7-desc3「C」 */
         en: 'Nine lights that occur above the clouds, listed roughly by altitude.'
       }
+    },
+    {
+      n: 8, roman: 'VIII', pages: 29, yen: '¥400', usd: '$3.99',
+      release: '2026-11-11T00:00:00+09:00', date: 'v8date', soon: 'v8out',
+      links: { kindleJa: 'https://www.amazon.co.jp/dp/B0HQ1BTD53', kindleEn: 'https://www.amazon.com/dp/B0HQ18BHYD' },  /* 11-03 予約の受付が始まった（Mimicria の 90_status の ASIN・11-04 に日英とも予約注文で配信日 11/11 を Amazon のページで確かめた） */
+      title: { ja: '雲と大気の少女たち', other: 'The Girls of Clouds & Atmosphere' },
+      genre: { ja: '気象擬人化図鑑', en: 'Weather, personified' },
+      catch: { ja: '同じ虹を、二人で見ることはできない。', en: 'No two people ever see the same rainbow.' },  /* 本と同じ（10-10 K8REC） */
+      desc: {
+        ja: '空に現れる光の現象10種。太陽を背にして見る虹から、夜の月虹まで、見る方向の順に掲載。',  /* 11-04 オーナー q-site-v8-1104「A」 */
+        en: 'Ten optical phenomena of the sky, listed by where to look, from the rainbow at your back to the moonbow at night.'
+      }
     }
   ];
   function isOut(b) { return Date.now() >= Date.parse(b.release); }
+  function freeLine(b) {
+    var f = b.free, now = Date.now();
+    if (!f || now < Date.parse(f.from) || now >= Date.parse(f.to)) return null;
+    return el('p', 'soon', t(f.text));
+  }
   /* ---------- 組み立て ---------- */
   var lang = 'ja';
   function t(key) { var v = T[key]; return v ? (v[lang] || v.en) : key; }
@@ -380,6 +403,8 @@ ul { padding: 0; list-style: none; }
     box.appendChild(facts(b, [[t('out'), t(b.date)]]));
     if (b.links.kindleJa || b.links.kindleEn) box.appendChild(stores(b));
     else box.appendChild(el('p', 'soon', t('kindleOnly')));
+    var fl = freeLine(b);
+    if (fl) box.appendChild(fl);
     root.appendChild(box);
   }
 
@@ -427,6 +452,8 @@ ul { padding: 0; list-style: none; }
       art.appendChild(el('p', 'desc', pick(b.desc)));
       art.appendChild(facts(b));
       art.appendChild(stores(b));
+      var fl = freeLine(b);
+      if (fl) art.appendChild(fl);
       shelf.appendChild(art);
     });
     root.appendChild(shelf);
